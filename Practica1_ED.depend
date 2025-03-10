@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1741630435 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\main.cpp
+	<iostream>
+
+1741630545 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\src\clasificacion.cpp
+	"Clasificacion.h"
+
+1741631455 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\clasificacion.h
+	"Comun.h"
+
+1741631462 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\comun.h
+	<fstream>
+	<iostream>
+
+1741631076 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\src\vector.cpp
+	"Vector.h"
+
+1741631088 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\vector.h
+
+1741631116 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\src\torneo.cpp
+	"Torneo.h"
+
+1741631443 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\torneo.h
+	"Comun.h"
+
