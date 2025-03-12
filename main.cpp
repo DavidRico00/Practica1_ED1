@@ -1,11 +1,13 @@
 #include "Comun.h"
+#include "Torneo.h"
 
 int menuClubDeGolf(int numTorneos);
 int menuTorneo(cadena nombre, int numGolfistas);
 
 int main()
 {
-
+    Torneo torneo;
+    torneo.CrearFichero("Prueba.cdat");
     return 0;
 }
 
