@@ -22,12 +22,12 @@ private:
 public:
     ~Torneo();
     Torneo();
-    inline int getNumGolfistas()                {return numGolfistas;}
-    inline void putNumGolfistas(int n)          {numGolfistas = n;}
-    inline void getNomTorneo(cadena nombre)     {strcpy(nombre, nomTorneo);}
-    inline void putNomTorneo(cadena nombre)     {strcpy(nomFichero, nombre);}
-    inline void getNomFichero(cadena nombre)    {strcpy(nombre, nomFichero);}
-    inline void putNomFichero(cadena nombre)    {strcpy(nomFichero, nombre);}
+    int getNumGolfistas();
+    void setNumGolfistas(int n);
+    void getNomTorneo(cadena nombre);
+    void setNomTorneo(cadena nombre);
+    void getNomFichero(cadena nombre);
+    void setNomFichero(cadena nombre);
     void CrearFichero(char nombreFichero[]);
     void mostrar(float hdcp);
     Golfista consultar(int posicion);
@@ -36,6 +36,8 @@ public:
     void modificar(Golfista c, int posicion);
     void eliminar(int posicion);
     void Clasificar();
+
+    void mostrarGolfista(Golfista *g, bool cabecera);
 };
 
 #endif // TORNEO_H

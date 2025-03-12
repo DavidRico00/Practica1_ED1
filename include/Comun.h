@@ -1,6 +1,9 @@
 #ifndef COMUN_H_INCLUDED
 #define COMUN_H_INCLUDED
 
+#define PAUSE system("pause");
+#define CLS system("cls");
+
 #define N 10
 #define SALTO 4
 
@@ -8,6 +11,7 @@
 #include <iostream>     //cin, cout
 using namespace std;
 #include <cstring>      //strcpy
+#include <iomanip>      // Necesario para setw(), left, right
 
 const int TAM_CADENA = 30;
 typedef char cadena[TAM_CADENA];
@@ -21,6 +25,6 @@ typedef char cadena[TAM_CADENA];
     close()
     read( char* destino, int cantidad )
     write( char* origen, int cantidad )
-    seekg( streamoff desplazamiento, seekdir pos )      ios::beg, ios::cur, ios::end
-    seekp( streamoff desplazamiento, seekdir pos )      ios::beg, ios::cur, ios::end
+    seekg( streamoff desplazamiento, seekdir pos )      ios::beg, ios::cur, ios::end    lectura
+    seekp( streamoff desplazamiento, seekdir pos )      ios::beg, ios::cur, ios::end    escritura
 */
