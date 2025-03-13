@@ -10,12 +10,30 @@ Torneo::~Torneo()
 
 }
 
-int Torneo::getNumGolfistas()               {return numGolfistas;}
-void Torneo::setNumGolfistas(int n)         {numGolfistas = n;}
-void Torneo::getNomTorneo(cadena nombre)    {strcpy(nombre, nomTorneo);}
-void Torneo::setNomTorneo(cadena nombre)    {strcpy(nomTorneo, nombre);}
-void Torneo::getNomFichero(cadena nombre)   {strcpy(nombre, nomFichero);}
-void Torneo::setNomFichero(cadena nombre)   {strcpy(nomFichero, nombre);}
+int Torneo::getNumGolfistas()
+{
+    return numGolfistas;
+}
+void Torneo::setNumGolfistas(int n)
+{
+    numGolfistas = n;
+}
+void Torneo::getNomTorneo(cadena nombre)
+{
+    strcpy(nombre, nomTorneo);
+}
+void Torneo::setNomTorneo(cadena nombre)
+{
+    strcpy(nomTorneo, nombre);
+}
+void Torneo::getNomFichero(cadena nombre)
+{
+    strcpy(nombre, nomFichero);
+}
+void Torneo::setNomFichero(cadena nombre)
+{
+    strcpy(nomFichero, nombre);
+}
 
 void Torneo::CrearFichero(char nombreFichero[])
 {
@@ -55,7 +73,8 @@ void Torneo::mostrar(float hdcp)
     if(numGolfistas == 0)
     {
         cout<<"No hay golfistas para mostrar";
-        PAUSE; CLS;
+        PAUSE;
+        CLS;
         return;
     }
 
@@ -65,7 +84,7 @@ void Torneo::mostrar(float hdcp)
         Golfista golfista;
         bool mostrarCab = true;
         fichero.seekg(sizeof(int), ios::beg);
-        for(int i=0;i<numGolfistas;i++)
+        for(int i=0; i<numGolfistas; i++)
         {
             fichero.read((char*)&golfista, sizeof(Golfista));
             if(hdcp == -1 || hdcp!=-1 && hdcp==golfista.handicap)
@@ -127,9 +146,12 @@ void Torneo::Clasificar()
     golfistas, junto con el número de golpes y los resultados obtenidos.*/
 }
 
+
+
 void Torneo::mostrarGolfista(Golfista *g, bool cabecera)
 {
-    if (cabecera) {
+    if (cabecera)
+    {
         cout << setw(13) << left << "LICENCIA"
              << setw(6) << left << "HCP"
              << setw(15) << left << "NOMBRE"
@@ -148,3 +170,9 @@ void Torneo::mostrarGolfista(Golfista *g, bool cabecera)
          << setw(9) << left << g->resultado << endl;
 }
 
+void Torneo::mostrarDatosTorneo()
+{
+    cout<<"Nombre Torneo: "<<nomTorneo<<endl;
+    cout<<"Nombre Fichero: "<<nomFichero<<endl;
+    cout<<"Numero Golfistas: "<<numGolfistas<<endl;
+}

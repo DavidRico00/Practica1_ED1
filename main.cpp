@@ -6,30 +6,55 @@ int menuTorneo(cadena nombre, int numGolfistas);
 
 int main()
 {
-    int opcMCG = menuClubDeGolf(0);
+    Torneo torneos[N];
+    int numTorneos = 0, opcMCG;
 
-    switch(opcMCG)
+    fstream fTorneo("TORNEOS.DAT", ios::binary | ios::in);
+    if(fTorneo.fail())
     {
+        fTorneo.close();
+        fTorneo.open("TORNEOS.dat", ios::binary | ios::out);
+        fTorneo.close();
+    }
+    else
+    {
+        //Leer fichero TORNEOS.DAT
+    }
+    fTorneo.close();
+
+    do
+    {
+        opcMCG = menuClubDeGolf(numTorneos);
+        switch(opcMCG)
+        {
         case 1:
         {
 
-        } break;
+        }
+        break;
 
         case 2:
         {
 
-        } break;
+        }
+        break;
 
         case 3:
         {
-
-        } break;
+            Torneo torneo;
+            torneo.CrearFichero("SONY");
+            torneo.mostrar(-1);
+        }
+        break;
 
         case 4:
         {
             cout<<"\nSaliendo..."<<endl;
-        } break;
+        }
+        break;
+        }
     }
+    while(opcMCG != 4);
 
     return 0;
 }
@@ -47,7 +72,8 @@ int menuClubDeGolf(int numTorneos)
         if(opcion<0 || opcion>4)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
-            PAUSE; CLS;
+            PAUSE;
+            CLS;
         }
     }
     while(opcion<0 || opcion>4);
@@ -69,7 +95,8 @@ int menuTorneo(cadena nombre, int numGolfistas)
         if(opcion<0 || opcion>7)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
-            PAUSE; CLS;
+            PAUSE;
+            CLS;
         }
     }
     while(opcion<0 || opcion>7);
