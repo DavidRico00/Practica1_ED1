@@ -61,6 +61,7 @@ void Torneo::CrearFichero(char nombreFichero[])
     {
         fichero.read((char*)&numGolfistas, sizeof(int));
     }
+
     fichero.close();
 }
 
@@ -105,6 +106,22 @@ Golfista Torneo::consultar(int posicion)
 {
     /*El método consultar devuelve el golfista cuya posición se pasa por parámetro. La posición
     del primer golfista en el fichero es la 1.*/
+
+    Golfista golfista;
+
+    fichero.open(nomFichero, ios::binary | ios::in);
+    if(!fichero.fail())
+    {
+        fichero.seekg(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
+        fichero.read((char*)&golfista, sizeof(Golfista));
+    }
+
+    if(fichero.fail())
+        fichero.clear();
+
+    fichero.close();
+
+    return golfista;
 }
 
 int Torneo::buscar(cadena licencia)
@@ -112,6 +129,35 @@ int Torneo::buscar(cadena licencia)
     /*El método buscar devuelve la posición en el fichero del golfista cuya licencia se pasa como
     parámetro, si se encuentra, y en caso contrario devuelve el valor -1, para indicar que no existe
     ningún golfista con esa licencia en el fichero.*/
+
+    int posicion = -1;
+    Golfista golfista;
+
+    fichero.open(nomFichero, ios::binary | ios::in);
+    if(!fichero.fail())
+    {
+        int aux = 0;
+        bool encontrado = false;
+        fichero.seekg(sizeof(int), ios::beg);
+
+        while(!fichero.eof() && !encontrado)
+        {
+            fichero.read((char*)&golfista, sizeof(golfista));
+            aux++;
+            if(strcmp(licencia, golfista.licencia)==0)
+            {
+                posicion = aux;
+                encontrado = true;
+            }
+        }
+
+        if(fichero.fail())
+            fichero.clear();
+    }
+
+    fichero.close();
+
+    return posicion;
 }
 
 void Torneo::insertar(Golfista g)

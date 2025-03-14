@@ -41,9 +41,12 @@ int main()
 
         case 3:
         {
-            Torneo torneo;
-            torneo.CrearFichero("SONY");
-            torneo.mostrar(-1);
+            cadena nT;
+            cout<<"\nIntroduzca el nombre del fichero: ";
+            cin>>nT;
+
+            torneos[0].CrearFichero(nT);
+            int opcMT = menuTorneo(nT, torneos[0].getNumGolfistas());
         }
         break;
 
@@ -65,6 +68,7 @@ int menuClubDeGolf(int numTorneos)
 
     do
     {
+        CLS;
         cout<<"CLUB DE GOLF\n---------------------\nTorneos: "<<numTorneos<<endl;
         cout<<"\n\t1. Listado Torneos Abiertos\n\t2. Alta Torneo\n\t3. Elegir Torneo\n\t4. Salir\n"<<endl;
         cout<<"Indique la opcion deseada: ";
@@ -73,7 +77,6 @@ int menuClubDeGolf(int numTorneos)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
             PAUSE;
-            CLS;
         }
     }
     while(opcion<0 || opcion>4);
@@ -87,7 +90,8 @@ int menuTorneo(cadena nombre, int numGolfistas)
 
     do
     {
-        cout<<"Torneo "<<nombre<<"\n---------------------\nTorneos: "<<numGolfistas<<endl;
+        CLS;
+        cout<<"Torneo "<<nombre<<"\n---------------------\nNumero de golfistas: "<<numGolfistas<<endl;
         cout<<"\n\t1. Consulta de inscripciones\n\t2. Inscripcion al Torneo\n\t3. Busqueda de una inscripcion\n\t4. Modificar datos de una inscripcion"<<endl;
         cout<<"\t5. Eliminar una inscripcion\n\t7. Mostrar Resultados del Torneo\n\t7. Salir\n"<<endl;
         cout<<"Indique la opcion deseada: ";
@@ -96,7 +100,6 @@ int menuTorneo(cadena nombre, int numGolfistas)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
             PAUSE;
-            CLS;
         }
     }
     while(opcion<0 || opcion>7);

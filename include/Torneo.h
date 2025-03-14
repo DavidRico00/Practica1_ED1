@@ -18,7 +18,6 @@ private:
     int numGolfistas;
     cadena nomFichero;
     cadena nomTorneo;
-    void mostrarGolfista(Golfista *g, bool cabecera);
 
 public:
     ~Torneo();
@@ -38,6 +37,7 @@ public:
     void eliminar(int posicion);
     void Clasificar();
 
+    void mostrarGolfista(Golfista *g, bool cabecera);
     void mostrarDatosTorneo();
 };
 
