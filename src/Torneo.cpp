@@ -18,18 +18,22 @@ void Torneo::setNumGolfistas(int n)
 {
     numGolfistas = n;
 }
+
 void Torneo::getNomTorneo(cadena nombre)
 {
     strcpy(nombre, nomTorneo);
 }
+
 void Torneo::setNomTorneo(cadena nombre)
 {
     strcpy(nomTorneo, nombre);
 }
+
 void Torneo::getNomFichero(cadena nombre)
 {
     strcpy(nombre, nomFichero);
 }
+
 void Torneo::setNomFichero(cadena nombre)
 {
     strcpy(nomFichero, nombre);
@@ -74,8 +78,6 @@ void Torneo::mostrar(float hdcp)
     if(numGolfistas == 0)
     {
         cout<<"No hay golfistas para mostrar";
-        PAUSE;
-        CLS;
         return;
     }
 
@@ -85,12 +87,13 @@ void Torneo::mostrar(float hdcp)
         Golfista golfista;
         bool mostrarCab = true;
         fichero.seekg(sizeof(int), ios::beg);
+
         for(int i=0; i<numGolfistas; i++)
         {
             fichero.read((char*)&golfista, sizeof(Golfista));
             if(hdcp == -1 || hdcp!=-1 && hdcp==golfista.handicap)
             {
-                mostrarGolfista(&golfista, mostrarCab);
+                mostrarGolfista(&golfista, mostrarCab, i+1);
                 mostrarCab=false;
             }
         }
@@ -166,6 +169,49 @@ void Torneo::insertar(Golfista g)
     que los golfistas deben continuar en el fichero ordenados por hándicap, de menor a mayor.
     Habrá que controlar que no se insertan golfistas con la misma licencia de los ya inscritos en
     un mismo torneo.*/
+
+    if(buscar(g.licencia) != -1)
+        cout<<"\nYa existe un golfista con esa licencia";
+    else
+    {
+        fichero.open(nomFichero, ios::binary | ios::in | ios::out);
+        if(!fichero.fail())
+        {
+            fichero.seekg(sizeof(int), ios::beg);
+
+            int aux = 0;
+            bool insertado = false;
+            Golfista golfista;
+
+            while(aux<numGolfistas && !insertado)
+            {
+                fichero.read((char*)&golfista, sizeof(Golfista));
+                aux++;
+
+                if(g.handicap < golfista.handicap)
+                {
+                    for(int i=numGolfistas-1; i>aux-1 ; i--)
+                    {
+                        fichero.seekg(sizeof(int)+sizeof(Golfista)*i, ios::beg);
+                        fichero.read((char*)&golfista, sizeof(Golfista));
+                        fichero.write((char*)&golfista, sizeof(Golfista));
+                    }
+
+                    fichero.seekp(sizeof(int)+sizeof(Golfista)*(aux-1), ios::beg);
+                    fichero.write((char*)&g, sizeof(Golfista));
+
+                    numGolfistas++;
+                    insertado = true;
+                    cout<<"\nGolfista insertado con exito"<<endl;
+
+                    fichero.seekp(0, ios::beg);
+                    fichero.write((char*)&numGolfistas, sizeof(int));
+                }
+            }
+        }
+
+        fichero.close();
+    }
 }
 
 void Torneo::modificar(Golfista c, int posicion)
@@ -194,10 +240,11 @@ void Torneo::Clasificar()
 
 
 
-void Torneo::mostrarGolfista(Golfista *g, bool cabecera)
+void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
 {
     if (cabecera)
     {
+        cout << setw(5) << left << "POS";
         cout << setw(13) << left << "LICENCIA"
              << setw(6) << left << "HCP"
              << setw(15) << left << "NOMBRE"
@@ -208,6 +255,7 @@ void Torneo::mostrarGolfista(Golfista *g, bool cabecera)
         cout << string(67, '-') << endl;
     }
 
+    cout << setw(5) << left << pos;
     cout << setw(13) << left << g->licencia
          << setw(6) << left << g->handicap
          << setw(15) << left << g->nombre

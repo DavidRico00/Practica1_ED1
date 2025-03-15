@@ -37,7 +37,7 @@ public:
     void eliminar(int posicion);
     void Clasificar();
 
-    void mostrarGolfista(Golfista *g, bool cabecera);
+    void mostrarGolfista(Golfista *g, bool cabecera, int pos);
     void mostrarDatosTorneo();
 };
 

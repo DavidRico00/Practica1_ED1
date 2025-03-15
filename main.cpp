@@ -3,6 +3,7 @@
 
 int menuClubDeGolf(int numTorneos);
 int menuTorneo(cadena nombre, int numGolfistas);
+void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo);
 
 int main()
 {
@@ -46,7 +47,7 @@ int main()
             cin>>nT;
 
             torneos[0].CrearFichero(nT);
-            int opcMT = menuTorneo(nT, torneos[0].getNumGolfistas());
+            implementacionMenuTorneo(&torneos[0], nT);
         }
         break;
 
@@ -61,6 +62,72 @@ int main()
 
     return 0;
 }
+
+void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
+{
+    int opcMT;
+
+    do
+    {
+        opcMT = menuTorneo(nombreTorneo, torneo->getNumGolfistas());
+
+        switch(opcMT)
+        {
+        case 1:
+        {
+            cout<<"\nDime el handicap  de los golfistas que desea ver, en caso de querer ver todos escriba -1: ";
+            float hdcp;
+            cin>>hdcp;
+
+            cout<<endl;
+            torneo->mostrar(hdcp);
+            cout<<endl;
+
+        }
+        break;
+
+        case 2:
+        {
+
+        }
+        break;
+
+        case 3:
+        {
+
+        }
+        break;
+
+        case 4:
+        {
+
+        }
+        break;
+
+        case 5:
+        {
+
+        }
+        break;
+
+        case 6:
+        {
+
+        }
+        break;
+
+        case 7:
+        {
+            cout<<"\nVolviendo al menu principal...\n"<<endl;
+        }
+        break;
+        }
+
+        PAUSE;
+    }
+    while(opcMT != 7);
+}
+
 
 int menuClubDeGolf(int numTorneos)
 {

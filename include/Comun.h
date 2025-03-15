@@ -23,8 +23,8 @@ typedef char cadena[TAM_CADENA];
     fail()
     eof()
     close()
-    read( char* destino, int cantidad )
-    write( char* origen, int cantidad )
+    read( char* destino, int cantidadBytes )
+    write( char* origen, int cantidadBytes )
     seekg( streamoff desplazamiento, seekdir pos )      ios::beg, ios::cur, ios::end    lectura
     seekp( streamoff desplazamiento, seekdir pos )      ios::beg, ios::cur, ios::end    escritura
 */
