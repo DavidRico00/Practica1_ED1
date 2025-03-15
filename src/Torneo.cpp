@@ -1,19 +1,14 @@
 #include "Torneo.h"
 
-Torneo::Torneo()
-{
+Torneo::Torneo(){}
 
-}
-
-Torneo::~Torneo()
-{
-
-}
+Torneo::~Torneo(){}
 
 int Torneo::getNumGolfistas()
 {
     return numGolfistas;
 }
+
 void Torneo::setNumGolfistas(int n)
 {
     numGolfistas = n;
@@ -171,7 +166,7 @@ void Torneo::insertar(Golfista g)
     un mismo torneo.*/
 
     if(buscar(g.licencia) != -1)
-        cout<<"\nYa existe un golfista con esa licencia";
+        cout<<"\nYa existe un golfista con esa licencia"<<endl;
     else
     {
         fichero.open(nomFichero, ios::binary | ios::in | ios::out);
@@ -200,10 +195,10 @@ void Torneo::insertar(Golfista g)
                     fichero.seekp(sizeof(int)+sizeof(Golfista)*(aux-1), ios::beg);
                     fichero.write((char*)&g, sizeof(Golfista));
 
-                    numGolfistas++;
                     insertado = true;
                     cout<<"\nGolfista insertado con exito"<<endl;
 
+                    numGolfistas++;
                     fichero.seekp(0, ios::beg);
                     fichero.write((char*)&numGolfistas, sizeof(int));
                 }
@@ -220,6 +215,25 @@ void Torneo::modificar(Golfista c, int posicion)
     los nuevos datos del golfista y la posición donde se encuentra. Si el golfista pasado no
     estuviera inscrito en el torneo, se mostraría un mensaje indicándolo. Nota: No se admite en
     la modificación cambiar el hándicap del golfista.*/
+
+    if(buscar(c.licencia)!=-1)
+        cout<<"\nEl golfista no esta inscrito en el torneo"<<endl;
+    else
+    {
+        fichero.open(nomFichero, ios::binary | ios::out);
+        if(!fichero.fail())
+        {
+            Golfista aux = consultar(posicion);
+            c.handicap = aux.handicap;
+
+            fichero.seekp(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
+            fichero.write((char*)&c, sizeof(Golfista));
+
+            cout<<"\nGolfista modificado con exito"<<endl;
+        }
+
+        fichero.close();
+    }
 }
 
 void Torneo::eliminar(int posicion)
@@ -228,6 +242,33 @@ void Torneo::eliminar(int posicion)
     parámetro. Si la posición no existe, se mostraría un mensaje de error. Para eliminar una
     inscripción de un golfista del fichero, se desplazan una posición a la izquierda todas las
     inscripciones a continuación de la eliminada (para no dejar huecos).*/
+
+    if(posicion>numGolfistas)
+        cout<<"\nLa posicion indicada es mayor al numero de golfistas"<<endl;
+    else
+    {
+        fichero.open(nomFichero, ios::binary | ios::out);
+        if(!fichero.fail())
+        {
+            Golfista aux;
+
+            for(int i=posicion; i<numGolfistas; i++)
+            {
+                fichero.seekg(sizeof(int)+sizeof(Golfista)*i, ios::beg);
+                fichero.read((char*)&aux, sizeof(Golfista));
+                fichero.seekp(sizeof(int)+sizeof(Golfista)*(i-1), ios::beg);
+                fichero.write((char*)&aux, sizeof(Golfista));
+            }
+
+            cout<<"\nGolfista eliminado con exito"<<endl;
+
+            numGolfistas--;
+            fichero.seekp(0, ios::beg);
+            fichero.write((char*)&numGolfistas, sizeof(Golfista));
+        }
+
+        fichero.close();
+    }
 }
 
 void Torneo::Clasificar()

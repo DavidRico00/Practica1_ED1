@@ -88,7 +88,22 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
 
         case 2:
         {
+            cadena nombre, apellidos, licencia;
+            Golfista golfista;
 
+            golfista.golpes=0;
+            golfista.resultado=0;
+
+            cout<<"\nIntroduzca el nombre: ";
+            cin>>golfista.nombre;
+            cout<<"Introduzca el apellido: ";
+            cin>>golfista.apellidos;
+            cout<<"Introduzca la licencia: ";
+            cin>>golfista.licencia;
+            cout<<"Introduzca el handicap: ";
+            cin>>golfista.handicap;
+
+            torneo->insertar(golfista);
         }
         break;
 
@@ -160,7 +175,7 @@ int menuTorneo(cadena nombre, int numGolfistas)
         CLS;
         cout<<"Torneo "<<nombre<<"\n---------------------\nNumero de golfistas: "<<numGolfistas<<endl;
         cout<<"\n\t1. Consulta de inscripciones\n\t2. Inscripcion al Torneo\n\t3. Busqueda de una inscripcion\n\t4. Modificar datos de una inscripcion"<<endl;
-        cout<<"\t5. Eliminar una inscripcion\n\t7. Mostrar Resultados del Torneo\n\t7. Salir\n"<<endl;
+        cout<<"\t5. Eliminar una inscripcion\n\t6. Mostrar Resultados del Torneo\n\t7. Salir\n"<<endl;
         cout<<"Indique la opcion deseada: ";
         cin>>opcion;
         if(opcion<0 || opcion>7)
