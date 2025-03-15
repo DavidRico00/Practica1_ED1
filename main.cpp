@@ -8,7 +8,7 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo);
 int main()
 {
     Torneo torneos[N];
-    int numTorneos = 0, opcMCG;
+    int numTorneos = 0;
 
     fstream fTorneo("TORNEOS.DAT", ios::binary | ios::in);
     if(fTorneo.fail())
@@ -20,9 +20,16 @@ int main()
     else
     {
         //Leer fichero TORNEOS.DAT
+        torneos[numTorneos].CrearFichero("AUDI");
+        numTorneos++;
+        torneos[numTorneos].CrearFichero("IBM");
+        numTorneos++;
+        torneos[numTorneos].CrearFichero("SONY");
+        numTorneos++;
     }
     fTorneo.close();
 
+    int opcMCG;
     do
     {
         opcMCG = menuClubDeGolf(numTorneos);
@@ -30,24 +37,68 @@ int main()
         {
         case 1:
         {
+            if(numTorneos==0)
+                cout<<"\nNo hay ningun torneo para mostrar"<<endl;
+            else
+            {
+                cout<<endl;
+                cadena aux;
 
+                for(int i=0; i<numTorneos; i++)
+                {
+                    torneos[i].getNomTorneo(aux);
+                    cout<<"Nombre del Torneo: "<<aux<<"\nNumero de Golfistas inscritos: "<<torneos[i].getNumGolfistas()<<"\n\n";
+                }
+                PAUSE;
+            }
         }
         break;
 
         case 2:
         {
+            if(numTorneos==N)
+                cout<<"\nNo se pueden crear mas torneos"<<endl;
+            else
+            {
+                cadena nomT;
 
+                cout<<"\nDime el nombre del torneo: ";
+                cin>>nomT;
+
+                torneos[numTorneos].CrearFichero(nomT);
+                numTorneos++;
+
+                cout<<"Nuevo torneo creado con exito"<<endl;
+            }
         }
         break;
 
         case 3:
         {
-            cadena nT;
-            cout<<"\nIntroduzca el nombre del fichero: ";
-            cin>>nT;
+            if(numTorneos==0)
+                cout<<"\nNo hay ningun torneo para mostrar"<<endl;
+            else
+            {
+                CLS;
+                cout<<"TORNEOS\n"<<endl;
 
-            torneos[0].CrearFichero(nT);
-            implementacionMenuTorneo(&torneos[0], nT);
+                cadena nomTorneo;
+                for(int i=0; i<numTorneos; i++)
+                {
+                    torneos[i].getNomTorneo(nomTorneo);
+                    cout<<i+1<<". "<<nomTorneo<<endl;
+                }
+
+                int opcTorneo;
+                do{
+                    cout<<"\nElija torneo: ";
+                    cin>>opcTorneo;
+                }
+                while(opcTorneo<1 || opcTorneo>numTorneos);
+
+                torneos[opcTorneo-1].getNomTorneo(nomTorneo);
+                implementacionMenuTorneo(&torneos[opcTorneo-1], nomTorneo);
+            }
         }
         break;
 
@@ -66,7 +117,6 @@ int main()
 void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
 {
     int opcMT;
-
     do
     {
         opcMT = menuTorneo(nombreTorneo, torneo->getNumGolfistas());
