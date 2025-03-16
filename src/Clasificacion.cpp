@@ -6,7 +6,11 @@ Clasificacion::Clasificacion()
     tamano = 0;
 }
 
-Clasificacion::~Clasificacion(){}
+Clasificacion::~Clasificacion()
+{
+    delete[] elementos;
+    elementos = NULL;
+}
 
 void Clasificacion::anadirjugador(Jugador a)
 {
@@ -30,6 +34,7 @@ void Clasificacion::anadirjugador(Jugador a)
 
         delete[] elementos;
         elementos = aux;
+        aux = NULL;
 
         tamano += SALTO;
     }
