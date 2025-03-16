@@ -159,7 +159,20 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
 
         case 3:
         {
+            cadena licencia;
+            cout<<"\nDime la licencia del golfista a buscar: ";
+            cin>>licencia;
 
+            int posicion = torneo->buscar(licencia);
+            if(posicion == -1)
+                cout<<"\nNo existe ningun golfista con esa licencia"<<endl;
+            else
+            {
+                cout<<endl;
+                Golfista g = torneo->consultar(posicion);
+                torneo->mostrarGolfista(&g, true, posicion);
+                cout<<endl;
+            }
         }
         break;
 
