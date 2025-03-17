@@ -39,11 +39,9 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/Torneo.h" />
-		<Unit filename="include/Vector.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Clasificacion.cpp" />
 		<Unit filename="src/Torneo.cpp" />
-		<Unit filename="src/Vector.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

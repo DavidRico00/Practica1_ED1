@@ -134,11 +134,11 @@ int Torneo::buscar(cadena licencia)
     fichero.open(nomFichero, ios::binary | ios::in);
     if(!fichero.fail())
     {
-        int aux = 0;
+        int aux = 0, iterador = 0;
         bool encontrado = false;
         fichero.seekg(sizeof(int), ios::beg);
 
-        while(!fichero.eof() && !encontrado)
+        while(iterador<numGolfistas && !encontrado)
         {
             fichero.read((char*)&golfista, sizeof(golfista));
             aux++;
@@ -147,6 +147,8 @@ int Torneo::buscar(cadena licencia)
                 posicion = aux;
                 encontrado = true;
             }
+
+            iterador++;
         }
 
         if(fichero.fail())
@@ -247,24 +249,25 @@ void Torneo::eliminar(int posicion)
         cout<<"\nLa posicion indicada es mayor al numero de golfistas"<<endl;
     else
     {
-        fichero.open(nomFichero, ios::binary | ios::out);
+        fichero.open(nomFichero, ios::binary | ios::out | ios::in);
         if(!fichero.fail())
         {
             Golfista aux;
 
             for(int i=posicion; i<numGolfistas; i++)
             {
-                fichero.seekg(sizeof(int)+sizeof(Golfista)*i, ios::beg);
+                fichero.seekg(sizeof(int)+i*sizeof(Golfista), ios::beg);
                 fichero.read((char*)&aux, sizeof(Golfista));
-                fichero.seekp(sizeof(int)+sizeof(Golfista)*(i-1), ios::beg);
+                fichero.seekp(sizeof(int)+(i-1)*sizeof(Golfista), ios::beg);
                 fichero.write((char*)&aux, sizeof(Golfista));
             }
 
             cout<<"\nGolfista eliminado con exito"<<endl;
 
             numGolfistas--;
+
             fichero.seekp(0, ios::beg);
-            fichero.write((char*)&numGolfistas, sizeof(Golfista));
+            fichero.write((char*)&numGolfistas, sizeof(int));
         }
 
         fichero.close();

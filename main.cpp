@@ -10,23 +10,46 @@ int main()
     Torneo torneos[N];
     int numTorneos = 0;
 
-    fstream fTorneo("TORNEOS.DAT", ios::binary | ios::in);
-    if(fTorneo.fail())
+    fstream fTorneo("TORNEOS.dat", ios::binary | ios::in);
+    fTorneo.seekg(0, ios::beg);
+    if(!fTorneo.fail())
     {
-        fTorneo.close();
-        fTorneo.open("TORNEOS.dat", ios::binary | ios::out);
-        fTorneo.close();
+        cadena nombre;
+        Torneo aux;
+
+        while(!fTorneo.eof())
+        {
+            fTorneo.read((char*)&aux, sizeof(Torneo));
+            aux.getNomTorneo(nombre);
+            if(!fTorneo.eof())
+            {
+                torneos[numTorneos].CrearFichero(nombre);
+                numTorneos++;
+            }
+        }
+
     }
     else
     {
-        //Leer fichero TORNEOS.DAT
+        fTorneo.close();
+        fTorneo.open("TORNEOS.dat", ios::binary | ios::out);
+
         torneos[numTorneos].CrearFichero("AUDI");
+        fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
+
         torneos[numTorneos].CrearFichero("IBM");
+        fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
+
         torneos[numTorneos].CrearFichero("SONY");
+        fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
+
+        fTorneo.close();
+
     }
+
     fTorneo.close();
 
     int opcMCG;
@@ -49,8 +72,8 @@ int main()
                     torneos[i].getNomTorneo(aux);
                     cout<<"Nombre del Torneo: "<<aux<<"\nNumero de Golfistas inscritos: "<<torneos[i].getNumGolfistas()<<"\n\n";
                 }
-                PAUSE;
             }
+            PAUSE;
         }
         break;
 
@@ -61,14 +84,19 @@ int main()
             else
             {
                 cadena nomT;
-
                 cout<<"\nDime el nombre del torneo: ";
                 cin>>nomT;
 
                 torneos[numTorneos].CrearFichero(nomT);
                 numTorneos++;
 
+                fTorneo.open("TORNEOS.dat", ios::binary | ios::out | ios::app);
+                fTorneo.seekp(0, ios::end);
+                fTorneo.write((char*)&torneos[numTorneos-1], sizeof(Torneo));
+                fTorneo.close();
+
                 cout<<"Nuevo torneo creado con exito"<<endl;
+                PAUSE;
             }
         }
         break;
@@ -90,7 +118,8 @@ int main()
                 }
 
                 int opcTorneo;
-                do{
+                do
+                {
                     cout<<"\nElija torneo: ";
                     cin>>opcTorneo;
                 }
@@ -184,7 +213,17 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
 
         case 5:
         {
+            cadena licencia;
+            cout<<"\nDime la licencia del golfista a eliminar: ";
+            cin>>licencia;
 
+            int pos = torneo->buscar(licencia);
+            if(pos != -1)
+            {
+                torneo->eliminar(pos);
+            }
+            else
+                cout<<"\nNo existe ningun golfista con esa licencia"<<endl;
         }
         break;
 
@@ -218,13 +257,13 @@ int menuClubDeGolf(int numTorneos)
         cout<<"\n\t1. Listado Torneos Abiertos\n\t2. Alta Torneo\n\t3. Elegir Torneo\n\t4. Salir\n"<<endl;
         cout<<"Indique la opcion deseada: ";
         cin>>opcion;
-        if(opcion<0 || opcion>4)
+        if(opcion<1 || opcion>4)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
             PAUSE;
         }
     }
-    while(opcion<0 || opcion>4);
+    while(opcion<1 || opcion>4);
 
     return opcion;
 }
@@ -241,13 +280,13 @@ int menuTorneo(cadena nombre, int numGolfistas)
         cout<<"\t5. Eliminar una inscripcion\n\t6. Mostrar Resultados del Torneo\n\t7. Salir\n"<<endl;
         cout<<"Indique la opcion deseada: ";
         cin>>opcion;
-        if(opcion<0 || opcion>7)
+        if(opcion<1 || opcion>7)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
             PAUSE;
         }
     }
-    while(opcion<0 || opcion>7);
+    while(opcion<1 || opcion>7);
 
     return opcion;
 }
