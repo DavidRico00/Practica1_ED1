@@ -45,9 +45,6 @@ int main()
         torneos[numTorneos].CrearFichero("SONY");
         fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
-
-        fTorneo.close();
-
     }
 
     fTorneo.close();
@@ -244,7 +241,6 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
     }
     while(opcMT != 7);
 }
-
 
 int menuClubDeGolf(int numTorneos)
 {
