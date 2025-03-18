@@ -213,17 +213,16 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
                 cout<<"\nNo existe ningun golfista con esa licencia"<<endl;
             else
             {
-                Golfista g = torneo->consultar(posicion);
-                cout<<"";
-                torneo->mostrarGolfista(&g, true, posicion);
-
                 Golfista newGol;
-                cout<<"\nDime el nombre: ";
+                cout<<"\nDime el nuevo nombre: ";
                 cin>>newGol.nombre;
-                cout<<"Dime el apellido: ";
+                cout<<"Dime el nuevo apellido: ";
                 cin>>newGol.apellidos;
-                cout<<"Dime la licencia: ";
+                cout<<"Dime la nueva licencia: ";
                 cin>>newGol.licencia;
+
+                newGol.golpes = 0;
+                newGol.resultado = 0;
 
                 torneo->modificar(newGol, posicion);
             }

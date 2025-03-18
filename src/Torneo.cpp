@@ -114,9 +114,6 @@ Golfista Torneo::consultar(int posicion)
         fichero.read((char*)&golfista, sizeof(Golfista));
     }
 
-    if(fichero.fail())
-        fichero.clear();
-
     fichero.close();
 
     return golfista;
@@ -229,10 +226,11 @@ void Torneo::modificar(Golfista c, int posicion)
         cout<<"\nEl golfista no esta inscrito en el torneo"<<endl;
     else
     {
+        Golfista aux = consultar(posicion);
+
         fichero.open(nomFichero, ios::binary | ios::out);
         if(!fichero.fail())
         {
-            Golfista aux = consultar(posicion);
             c.handicap = aux.handicap;
 
             fichero.seekp(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
