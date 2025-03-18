@@ -187,24 +187,31 @@ void Torneo::insertar(Golfista g)
 
                 if(g.handicap < golfista.handicap)
                 {
-                    for(int i=numGolfistas-1; i>aux-1 ; i--)
+                    for(int i=numGolfistas-1; i>=aux-1; i--)
                     {
                         fichero.seekg(sizeof(int)+sizeof(Golfista)*i, ios::beg);
                         fichero.read((char*)&golfista, sizeof(Golfista));
                         fichero.write((char*)&golfista, sizeof(Golfista));
                     }
-
                     fichero.seekp(sizeof(int)+sizeof(Golfista)*(aux-1), ios::beg);
                     fichero.write((char*)&g, sizeof(Golfista));
 
                     insertado = true;
-                    cout<<"\nGolfista insertado con exito"<<endl;
-
-                    numGolfistas++;
-                    fichero.seekp(0, ios::beg);
-                    fichero.write((char*)&numGolfistas, sizeof(int));
                 }
             }
+
+            if(!insertado)
+            {
+                fichero.seekp(sizeof(int)+sizeof(Golfista)*numGolfistas, ios::beg);
+                fichero.write((char*)&g, sizeof(Golfista));
+            }
+
+            numGolfistas++;
+            fichero.seekp(0, ios::beg);
+            fichero.write((char*)&numGolfistas, sizeof(int));
+
+            cout<<"\nGolfista insertado con exito\n"<<endl;
+
         }
 
         fichero.close();
@@ -218,7 +225,7 @@ void Torneo::modificar(Golfista c, int posicion)
     estuviera inscrito en el torneo, se mostraría un mensaje indicándolo. Nota: No se admite en
     la modificación cambiar el hándicap del golfista.*/
 
-    if(buscar(c.licencia)!=-1)
+    if(posicion>numGolfistas || posicion<1)
         cout<<"\nEl golfista no esta inscrito en el torneo"<<endl;
     else
     {
@@ -231,7 +238,7 @@ void Torneo::modificar(Golfista c, int posicion)
             fichero.seekp(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
             fichero.write((char*)&c, sizeof(Golfista));
 
-            cout<<"\nGolfista modificado con exito"<<endl;
+            cout<<"\nGolfista modificado con exito\n"<<endl;
         }
 
         fichero.close();
@@ -262,7 +269,7 @@ void Torneo::eliminar(int posicion)
                 fichero.write((char*)&aux, sizeof(Golfista));
             }
 
-            cout<<"\nGolfista eliminado con exito"<<endl;
+            cout<<"\nGolfista eliminado con exito\n"<<endl;
 
             numGolfistas--;
 
