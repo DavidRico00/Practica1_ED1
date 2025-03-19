@@ -226,13 +226,10 @@ void Torneo::modificar(Golfista c, int posicion)
         cout<<"\nEl golfista no esta inscrito en el torneo"<<endl;
     else
     {
-        Golfista aux = consultar(posicion);
 
         fichero.open(nomFichero, ios::binary | ios::out);
         if(!fichero.fail())
         {
-            c.handicap = aux.handicap;
-
             fichero.seekp(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
             fichero.write((char*)&c, sizeof(Golfista));
 
@@ -293,7 +290,7 @@ void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
 {
     if (cabecera)
     {
-        cout << setw(5) << left << "POS";
+        cout << "\n" << setw(5) << left << "POS";
         cout << setw(13) << left << "LICENCIA"
              << setw(6) << left << "HCP"
              << setw(15) << left << "NOMBRE"

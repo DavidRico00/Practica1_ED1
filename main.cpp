@@ -155,7 +155,6 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
             float hdcp;
             cin>>hdcp;
 
-            cout<<endl;
             torneo->mostrar(hdcp);
             cout<<endl;
 
@@ -214,15 +213,16 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
             else
             {
                 Golfista newGol;
+
+                newGol = torneo->consultar(posicion);
+                torneo->mostrarGolfista(&newGol, true, posicion);
+
                 cout<<"\nDime el nuevo nombre: ";
                 cin>>newGol.nombre;
                 cout<<"Dime el nuevo apellido: ";
                 cin>>newGol.apellidos;
                 cout<<"Dime la nueva licencia: ";
                 cin>>newGol.licencia;
-
-                newGol.golpes = 0;
-                newGol.resultado = 0;
 
                 torneo->modificar(newGol, posicion);
             }
