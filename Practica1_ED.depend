@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1742375060 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\main.cpp
+1742375266 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\main.cpp
 	"Comun.h"
 	"Torneo.h"
 
@@ -20,9 +20,9 @@
 
 1741631088 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\vector.h
 
-1742375041 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\src\torneo.cpp
+1742375604 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\src\torneo.cpp
 	"Torneo.h"
 
-1742043702 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\torneo.h
+1742375598 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed\include\torneo.h
 	"Comun.h"
 

@@ -215,7 +215,7 @@ void Torneo::insertar(Golfista g)
     }
 }
 
-void Torneo::modificar(Golfista c, int posicion)
+void Torneo::modificar(Golfista g, int posicion)
 {
     /*El método modificar se encarga de actualizar los datos de un golfista ya inscrito. Se pasarán
     los nuevos datos del golfista y la posición donde se encuentra. Si el golfista pasado no
@@ -227,11 +227,11 @@ void Torneo::modificar(Golfista c, int posicion)
     else
     {
 
-        fichero.open(nomFichero, ios::binary | ios::out);
+        fichero.open(nomFichero, ios::binary | ios::out | ios::in);
         if(!fichero.fail())
         {
             fichero.seekp(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
-            fichero.write((char*)&c, sizeof(Golfista));
+            fichero.write((char*)&g, sizeof(Golfista));
 
             cout<<"\nGolfista modificado con exito\n"<<endl;
         }

@@ -33,7 +33,7 @@ public:
     Golfista consultar(int posicion);
     int buscar(cadena licencia);
     void insertar(Golfista g);
-    void modificar(Golfista c, int posicion);
+    void modificar(Golfista g, int posicion);
     void eliminar(int posicion);
     void Clasificar();
 
