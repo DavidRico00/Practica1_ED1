@@ -43,9 +43,7 @@ void Torneo::CrearFichero(char nombreFichero[])
     nombrefichero no existe se procede a crear el fichero vacío (asignando y guardando el valor
     de 0 para el número de Golfistas). Si el fichero existe se abre para poder gestionarlo.*/
 
-    setNomTorneo(nombreFichero);
     setNomFichero(nombreFichero);
-    strcat(nomFichero, ".dat");
 
     fichero.open(nomFichero, ios::binary | ios::in);
     if(fichero.fail())

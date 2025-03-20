@@ -14,16 +14,18 @@ int main()
     fTorneo.seekg(0, ios::beg);
     if(!fTorneo.fail())
     {
-        cadena nombre;
+        cadena nombre, fichero;
         Torneo aux;
 
         while(!fTorneo.eof())
         {
             fTorneo.read((char*)&aux, sizeof(Torneo));
+            aux.getNomFichero(fichero);
             aux.getNomTorneo(nombre);
             if(!fTorneo.eof())
             {
-                torneos[numTorneos].CrearFichero(nombre);
+                torneos[numTorneos].CrearFichero(fichero);
+                torneos[numTorneos].getNomTorneo(nombre);
                 numTorneos++;
             }
         }
@@ -34,15 +36,18 @@ int main()
         fTorneo.close();
         fTorneo.open("TORNEOS.dat", ios::binary | ios::out);
 
-        torneos[numTorneos].CrearFichero("AUDI");
+        torneos[numTorneos].CrearFichero("AUDI.dat");
+        torneos[numTorneos].setNomTorneo("AUDI");
         fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
 
-        torneos[numTorneos].CrearFichero("IBM");
+        torneos[numTorneos].CrearFichero("IBM.dat");
+        torneos[numTorneos].setNomTorneo("IBM");
         fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
 
-        torneos[numTorneos].CrearFichero("SONY");
+        torneos[numTorneos].CrearFichero("SONY.dat");
+        torneos[numTorneos].setNomTorneo("SONY");
         fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
         numTorneos++;
     }
@@ -80,19 +85,24 @@ int main()
                 cout<<"\nNo se pueden crear mas torneos"<<endl;
             else
             {
-                cadena nomT;
-                cout<<"\nDime el nombre del torneo: ";
-                cin>>nomT;
+                cadena nom;
 
-                torneos[numTorneos].CrearFichero(nomT);
+                cout<<"Dime el nombre del fichero: ";
+                cin>>nom;
+                torneos[numTorneos].CrearFichero(nom);
+
+                cout<<"\nDime el nombre del torneo: ";
+                cin>>nom;
+                torneos[numTorneos].setNomTorneo(nom);
+
                 numTorneos++;
 
-                fTorneo.open("TORNEOS.dat", ios::binary | ios::out | ios::app);
+                fTorneo.open("TORNEOS.dat", ios::binary | ios::out | ios::in);
                 fTorneo.seekp(0, ios::end);
                 fTorneo.write((char*)&torneos[numTorneos-1], sizeof(Torneo));
                 fTorneo.close();
 
-                cout<<"Nuevo torneo creado con exito"<<endl;
+                cout<<"\nNuevo torneo creado con exito\n"<<endl;
                 PAUSE;
             }
         }
