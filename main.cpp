@@ -25,13 +25,10 @@ int main()
             if(!fTorneo.eof())
             {
                 torneos[numTorneos].CrearFichero(fichero);
-                torneos[numTorneos].getNomTorneo(nombre);
+                torneos[numTorneos].setNomTorneo(nombre);
                 numTorneos++;
             }
         }
-
-        fTorneo.clear();
-
     }
     else
     {
@@ -205,7 +202,6 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
                 cout<<"\nNo existe ningun golfista con esa licencia"<<endl;
             else
             {
-                cout<<endl;
                 Golfista g = torneo->consultar(posicion);
                 torneo->mostrarGolfista(&g, true, posicion);
                 cout<<endl;

@@ -1,0 +1,8 @@
+Torneo:
+  - Clasificar()
+
+Clasificacion:
+  - Comprobar que funciona correctamente
+
+Main:
+  - case 6 MenuTorneo
