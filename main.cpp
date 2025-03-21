@@ -30,6 +30,8 @@ int main()
             }
         }
 
+        fTorneo.clear();
+
     }
     else
     {
@@ -87,11 +89,11 @@ int main()
             {
                 cadena nom;
 
-                cout<<"Dime el nombre del fichero: ";
+                cout<<"\nDime el nombre del fichero: ";
                 cin>>nom;
                 torneos[numTorneos].CrearFichero(nom);
 
-                cout<<"\nDime el nombre del torneo: ";
+                cout<<"Dime el nombre del torneo: ";
                 cin>>nom;
                 torneos[numTorneos].setNomTorneo(nom);
 
