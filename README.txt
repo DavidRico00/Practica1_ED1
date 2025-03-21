@@ -1,0 +1,1 @@
+El archivo de la carpeta archivos_aux, es necesario moverlo a la carpeta de MinGW/bin (MinGW es el compilador instalado)
