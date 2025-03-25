@@ -5,6 +5,13 @@ int menuClubDeGolf(int numTorneos);
 int menuTorneo(cadena nombre, int numGolfistas);
 void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo);
 
+struct TorneoStruct
+{
+    int numGolfistas;
+    cadena nomFichero;
+    cadena nomTorneo;
+};
+
 int main()
 {
     Torneo torneos[N];
@@ -15,38 +22,46 @@ int main()
     if(!fTorneo.fail())
     {
         cadena nombre, fichero;
-        Torneo aux;
+        TorneoStruct aux;
 
-        fTorneo.read((char*)&aux, sizeof(Torneo));
+        fTorneo.read((char*)&aux, sizeof(TorneoStruct));
         while(!fTorneo.eof())
         {
-            aux.getNomFichero(fichero);
-            aux.getNomTorneo(nombre);
-            torneos[numTorneos].CrearFichero(fichero);
-            torneos[numTorneos].setNomTorneo(nombre);
+            torneos[numTorneos].CrearFichero(aux.nomFichero);
+            torneos[numTorneos].setNomTorneo(aux.nomTorneo);
             numTorneos++;
 
-            fTorneo.read((char*)&aux, sizeof(Torneo));
+            fTorneo.read((char*)&aux, sizeof(TorneoStruct));
         }
     }
     else
     {
         fTorneo.close();
         fTorneo.open("TORNEOS.dat", ios::binary | ios::out);
+        TorneoStruct torneoS;
 
         torneos[numTorneos].CrearFichero("AUDI.dat");
         torneos[numTorneos].setNomTorneo("AUDI");
-        fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
+        torneoS.numGolfistas = torneos[numTorneos].getNumGolfistas();
+        torneos[numTorneos].getNomFichero(torneoS.nomFichero);
+        torneos[numTorneos].getNomTorneo(torneoS.nomTorneo);
+        fTorneo.write((char*)&torneoS, sizeof(TorneoStruct));
         numTorneos++;
 
         torneos[numTorneos].CrearFichero("IBM.dat");
         torneos[numTorneos].setNomTorneo("IBM");
-        fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
+        torneoS.numGolfistas = torneos[numTorneos].getNumGolfistas();
+        torneos[numTorneos].getNomFichero(torneoS.nomFichero);
+        torneos[numTorneos].getNomTorneo(torneoS.nomTorneo);
+        fTorneo.write((char*)&torneoS, sizeof(TorneoStruct));
         numTorneos++;
 
         torneos[numTorneos].CrearFichero("SONY.dat");
         torneos[numTorneos].setNomTorneo("SONY");
-        fTorneo.write((char*)&torneos[numTorneos], sizeof(Torneo));
+        torneoS.numGolfistas = torneos[numTorneos].getNumGolfistas();
+        torneos[numTorneos].getNomFichero(torneoS.nomFichero);
+        torneos[numTorneos].getNomTorneo(torneoS.nomTorneo);
+        fTorneo.write((char*)&torneoS, sizeof(TorneoStruct));
         numTorneos++;
     }
 

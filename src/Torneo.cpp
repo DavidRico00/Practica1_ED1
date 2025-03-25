@@ -9,8 +9,8 @@ Torneo::Torneo()
 
 Torneo::~Torneo()
 {
-    cout<<"Se intenta destruir el torneo: "<<nomTorneo<<endl;
-    fichero.close();
+    if(fichero.is_open())
+        fichero.close();
 }
 
 int Torneo::getNumGolfistas()
