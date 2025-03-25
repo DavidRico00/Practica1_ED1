@@ -283,7 +283,7 @@ void Torneo::Clasificar()
     {
         srand(time(0));
 
-        int minimo = 60, maximo = 120;
+        int minimo = 42, maximo = 112;
 
         Clasificacion clasificacion;
         Golfista golfista;
