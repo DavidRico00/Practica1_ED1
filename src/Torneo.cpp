@@ -283,18 +283,17 @@ void Torneo::Clasificar()
     {
         srand(time(0));
 
+        int minimo = 60, maximo = 120;
+
         Clasificacion clasificacion;
         Golfista golfista;
 
         for(int i=1; i<=numGolfistas; i++)
         {
             golfista = consultar(i);
-            golfista.golpes = rand() % (100 - 60 + 1) + 60;
+            golfista.golpes = rand() % (maximo - minimo + 1) + minimo;
             golfista.resultado = golfista.golpes - 72;
             modificar(golfista, i);
-
-            golfista = consultar(i);
-            mostrarGolfista(&golfista, false, i);
 
             Jugador jugador;
             jugador.indice = i;
@@ -302,16 +301,16 @@ void Torneo::Clasificar()
 
             clasificacion.anadirjugador(jugador);
         }
-        clasificacion.ordenar();
 
-        cout<<"\nTermina de añadir jugadores a clasificacion, vamos a mostrarlos"<<endl;
+        clasificacion.ordenar();
 
         for(int i=1; i<=numGolfistas; i++)
         {
-            Jugador jugador = clasificacion.consultar(i);
+            Jugador jugador = clasificacion.consultar(i-1);
             golfista = consultar(jugador.indice);
             mostrarGolfista(&golfista, i==1, jugador.indice);
         }
+        cout<<endl;
     }
 
     if(fichero.fail())
@@ -342,11 +341,4 @@ void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
          << setw(15) << left << g->apellidos
          << setw(8) << left << g->golpes
          << setw(9) << left << g->resultado << endl;
-}
-
-void Torneo::mostrarDatosTorneo()
-{
-    cout<<"Nombre Torneo: "<<nomTorneo<<endl;
-    cout<<"Nombre Fichero: "<<nomFichero<<endl;
-    cout<<"Numero Golfistas: "<<numGolfistas<<endl;
 }

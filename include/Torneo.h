@@ -39,7 +39,6 @@ public:
     void Clasificar();
 
     void mostrarGolfista(Golfista *g, bool cabecera, int pos);
-    void mostrarDatosTorneo();
 };
 
 #endif // TORNEO_H

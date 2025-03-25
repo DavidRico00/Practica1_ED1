@@ -67,7 +67,7 @@ Jugador Clasificacion::consultar(int n)
     if(n<0 || n>Jugadores)
         cout<<"\nLa posicion pasada esta fuera de los limites"<<endl;
     else
-        return elementos[n-1];
+        return elementos[n];
 }
 
 bool Clasificacion::vacio()
@@ -90,13 +90,13 @@ void Clasificacion::ordenar()
     /*El método ordenar ordena la tabla dinámica elementos por el algoritmo burbuja.*/
     int pos,ele;
 
-    for (pos=0; pos<Jugadores; pos++){
-        for (ele=pos+1; ele<Jugadores-1 ; ele++){
-            if(elementos[ele-1].resultado > elementos[ele].resultado)
+    for (pos=0; pos<Jugadores-1; pos++){
+        for (ele=pos+1; ele<Jugadores ; ele++){
+            if(elementos[pos].resultado > elementos[ele].resultado)
             {
-                Jugador aux = elementos[ele];
-                elementos[ele] = elementos[ele-1];
-                elementos[ele-1] = aux;
+                Jugador aux = elementos[pos];
+                elementos[pos] = elementos[ele];
+                elementos[ele] = aux;
             }
         }
     }

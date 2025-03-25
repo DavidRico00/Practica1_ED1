@@ -101,20 +101,22 @@ int main()
             else
             {
                 cadena nom;
+                TorneoStruct torneoS;
 
                 cout<<"\nDime el nombre del fichero: ";
-                cin>>nom;
-                torneos[numTorneos].CrearFichero(nom);
+                cin>>torneoS.nomFichero;
+                torneos[numTorneos].CrearFichero(torneoS.nomFichero);
 
                 cout<<"Dime el nombre del torneo: ";
-                cin>>nom;
-                torneos[numTorneos].setNomTorneo(nom);
+                cin>>torneoS.nomTorneo;
+                torneos[numTorneos].setNomTorneo(torneoS.nomTorneo);
 
+                torneoS.numGolfistas = torneos[numTorneos].getNumGolfistas();
                 numTorneos++;
 
                 fTorneo.open("TORNEOS.dat", ios::binary | ios::out | ios::in);
                 fTorneo.seekp(0, ios::end);
-                fTorneo.write((char*)&torneos[numTorneos-1], sizeof(Torneo));
+                fTorneo.write((char*)&torneoS, sizeof(TorneoStruct));
                 fTorneo.close();
 
                 cout<<"\nNuevo torneo creado con exito\n"<<endl;
