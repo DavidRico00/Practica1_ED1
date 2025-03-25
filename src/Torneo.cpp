@@ -1,8 +1,17 @@
 #include "Torneo.h"
 
-Torneo::Torneo(){}
+Torneo::Torneo()
+{
+    numGolfistas = 0;
+    setNomFichero("");
+    setNomTorneo("");
+}
 
-Torneo::~Torneo(){}
+Torneo::~Torneo()
+{
+    cout<<"Se intenta destruir el torneo: "<<nomTorneo<<endl;
+    fichero.close();
+}
 
 int Torneo::getNumGolfistas()
 {
@@ -45,7 +54,7 @@ void Torneo::CrearFichero(char nombreFichero[])
 
     setNomFichero(nombreFichero);
 
-    fichero.open(nomFichero, ios::binary | ios::in);
+    fichero.open(nomFichero, ios::binary | ios::in | ios::out);
     if(fichero.fail())
     {
         numGolfistas = 0;
@@ -53,13 +62,14 @@ void Torneo::CrearFichero(char nombreFichero[])
         fichero.open(nomFichero, ios::binary | ios::out);
         if(!fichero.fail())
             fichero.write((char*)&numGolfistas, sizeof(int));
+
+        fichero.close();
+        fichero.open(nomFichero, ios::binary | ios::in | ios::out);
     }
     else
     {
         fichero.read((char*)&numGolfistas, sizeof(int));
     }
-
-    fichero.close();
 }
 
 void Torneo::mostrar(float hdcp)
@@ -74,7 +84,6 @@ void Torneo::mostrar(float hdcp)
         return;
     }
 
-    fichero.open(nomFichero, ios::binary | ios::in);
     if(!fichero.fail())
     {
         Golfista golfista;
@@ -94,8 +103,6 @@ void Torneo::mostrar(float hdcp)
 
     if(fichero.fail())
         fichero.clear();
-
-    fichero.close();
 }
 
 Golfista Torneo::consultar(int posicion)
@@ -105,14 +112,14 @@ Golfista Torneo::consultar(int posicion)
 
     Golfista golfista;
 
-    fichero.open(nomFichero, ios::binary | ios::in);
     if(!fichero.fail())
     {
         fichero.seekg(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
         fichero.read((char*)&golfista, sizeof(Golfista));
     }
 
-    fichero.close();
+    if(fichero.fail())
+        fichero.clear();
 
     return golfista;
 }
@@ -126,14 +133,13 @@ int Torneo::buscar(cadena licencia)
     int posicion = -1;
     Golfista golfista;
 
-    fichero.open(nomFichero, ios::binary | ios::in);
     if(!fichero.fail())
     {
-        int aux = 0, iterador = 0;
+        int aux = 0;
         bool encontrado = false;
         fichero.seekg(sizeof(int), ios::beg);
 
-        while(iterador<numGolfistas && !encontrado)
+        while(aux<numGolfistas && !encontrado)
         {
             fichero.read((char*)&golfista, sizeof(golfista));
             aux++;
@@ -142,15 +148,11 @@ int Torneo::buscar(cadena licencia)
                 posicion = aux;
                 encontrado = true;
             }
-
-            iterador++;
         }
 
         if(fichero.fail())
             fichero.clear();
     }
-
-    fichero.close();
 
     return posicion;
 }
@@ -166,7 +168,6 @@ void Torneo::insertar(Golfista g)
         cout<<"\nYa existe un golfista con esa licencia"<<endl;
     else
     {
-        fichero.open(nomFichero, ios::binary | ios::in | ios::out);
         if(!fichero.fail())
         {
             fichero.seekg(sizeof(int), ios::beg);
@@ -206,10 +207,10 @@ void Torneo::insertar(Golfista g)
             fichero.write((char*)&numGolfistas, sizeof(int));
 
             cout<<"\nGolfista insertado con exito\n"<<endl;
-
         }
 
-        fichero.close();
+        if(fichero.fail())
+            fichero.clear();
     }
 }
 
@@ -224,17 +225,14 @@ void Torneo::modificar(Golfista g, int posicion)
         cout<<"\nEl golfista no esta inscrito en el torneo"<<endl;
     else
     {
-
-        fichero.open(nomFichero, ios::binary | ios::out | ios::in);
         if(!fichero.fail())
         {
             fichero.seekp(sizeof(int)+sizeof(Golfista)*(posicion-1), ios::beg);
             fichero.write((char*)&g, sizeof(Golfista));
-
-            cout<<"\nGolfista modificado con exito\n"<<endl;
         }
 
-        fichero.close();
+        if(fichero.fail())
+            fichero.clear();
     }
 }
 
@@ -249,7 +247,6 @@ void Torneo::eliminar(int posicion)
         cout<<"\nLa posicion indicada es mayor al numero de golfistas"<<endl;
     else
     {
-        fichero.open(nomFichero, ios::binary | ios::out | ios::in);
         if(!fichero.fail())
         {
             Golfista aux;
@@ -270,7 +267,8 @@ void Torneo::eliminar(int posicion)
             fichero.write((char*)&numGolfistas, sizeof(int));
         }
 
-        fichero.close();
+        if(fichero.fail())
+            fichero.clear();
     }
 }
 
@@ -280,6 +278,44 @@ void Torneo::Clasificar()
     con los golfistas que se han inscrito. Su detalle se explica más adelante. Este método simulará
     la celebración del torneo y mostrará por pantalla la clasificación final con los datos de los
     golfistas, junto con el número de golpes y los resultados obtenidos.*/
+
+    if(!fichero.fail())
+    {
+        srand(time(0));
+
+        Clasificacion clasificacion;
+        Golfista golfista;
+
+        for(int i=1; i<=numGolfistas; i++)
+        {
+            golfista = consultar(i);
+            golfista.golpes = rand() % (100 - 60 + 1) + 60;
+            golfista.resultado = golfista.golpes - 72;
+            modificar(golfista, i);
+
+            golfista = consultar(i);
+            mostrarGolfista(&golfista, false, i);
+
+            Jugador jugador;
+            jugador.indice = i;
+            jugador.resultado = golfista.resultado;
+
+            clasificacion.anadirjugador(jugador);
+        }
+        clasificacion.ordenar();
+
+        cout<<"\nTermina de añadir jugadores a clasificacion, vamos a mostrarlos"<<endl;
+
+        for(int i=1; i<=numGolfistas; i++)
+        {
+            Jugador jugador = clasificacion.consultar(i);
+            golfista = consultar(jugador.indice);
+            mostrarGolfista(&golfista, i==1, jugador.indice);
+        }
+    }
+
+    if(fichero.fail())
+        fichero.clear();
 }
 
 

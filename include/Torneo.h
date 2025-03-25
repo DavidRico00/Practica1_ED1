@@ -2,6 +2,7 @@
 #define TORNEO_H
 
 #include "Comun.h"
+#include "Clasificacion.h"
 
 struct Golfista {
 	cadena licencia;
@@ -20,8 +21,8 @@ private:
     cadena nomTorneo;
 
 public:
-    ~Torneo();
     Torneo();
+    ~Torneo();
     int getNumGolfistas();
     void setNumGolfistas(int n);
     void getNomTorneo(cadena nombre);

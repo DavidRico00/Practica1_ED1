@@ -17,17 +17,16 @@ int main()
         cadena nombre, fichero;
         Torneo aux;
 
+        fTorneo.read((char*)&aux, sizeof(Torneo));
         while(!fTorneo.eof())
         {
-            fTorneo.read((char*)&aux, sizeof(Torneo));
             aux.getNomFichero(fichero);
             aux.getNomTorneo(nombre);
-            if(!fTorneo.eof())
-            {
-                torneos[numTorneos].CrearFichero(fichero);
-                torneos[numTorneos].setNomTorneo(nombre);
-                numTorneos++;
-            }
+            torneos[numTorneos].CrearFichero(fichero);
+            torneos[numTorneos].setNomTorneo(nombre);
+            numTorneos++;
+
+            fTorneo.read((char*)&aux, sizeof(Torneo));
         }
     }
     else
@@ -51,6 +50,8 @@ int main()
         numTorneos++;
     }
 
+    if(fTorneo.fail())
+        fTorneo.clear();
     fTorneo.close();
 
     int opcMCG;
@@ -233,6 +234,7 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
                 cin>>newGol.licencia;
 
                 torneo->modificar(newGol, posicion);
+                cout<<"\nGolfista modificado con exito\n"<<endl;
             }
         }
         break;
@@ -255,7 +257,7 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
 
         case 6:
         {
-
+            torneo->Clasificar();
         }
         break;
 

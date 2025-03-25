@@ -23,7 +23,7 @@ void Clasificacion::anadirjugador(Jugador a)
     if(tamano==0)
     {
         elementos = new Jugador[SALTO];
-        tamano += SALTO;
+        tamano = SALTO;
     }
     else if(tamano==Jugadores)
     {
@@ -90,9 +90,9 @@ void Clasificacion::ordenar()
     /*El método ordenar ordena la tabla dinámica elementos por el algoritmo burbuja.*/
     int pos,ele;
 
-    for (pos=0; pos<Jugadores-1; pos++){
+    for (pos=0; pos<Jugadores; pos++){
         for (ele=pos+1; ele<Jugadores-1 ; ele++){
-            if(elementos[ele-1].resultado<elementos[ele].resultado)
+            if(elementos[ele-1].resultado > elementos[ele].resultado)
             {
                 Jugador aux = elementos[ele];
                 elementos[ele] = elementos[ele-1];
