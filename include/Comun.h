@@ -9,11 +9,13 @@
 
 #include <fstream>      //fstream
 #include <iostream>     //cin, cout
-using namespace std;
+
 #include <cstring>      //strcpy
 #include <iomanip>      // Necesario para setw(), left, right
 #include <cstdlib>      // Para rand() y srand()
 #include <ctime>        // Para time()
+
+using namespace std;
 
 const int TAM_CADENA = 30;
 typedef char cadena[TAM_CADENA];

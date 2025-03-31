@@ -78,7 +78,7 @@ int main()
         case 1:
         {
             if(numTorneos==0)
-                cout<<"\nNo hay ningun torneo para mostrar"<<endl;
+                cout<<"\nNo hay ningun torneo para mostrar\n"<<endl;
             else
             {
                 cout<<endl;
