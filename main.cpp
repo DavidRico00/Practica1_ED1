@@ -263,12 +263,22 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
             cin>>licencia;
 
             int pos = torneo->buscar(licencia);
+
             if(pos != -1)
             {
-                torneo->eliminar(pos);
+                Golfista aux = torneo->consultar(pos);
+                torneo->mostrarGolfista(&aux, true, pos);
+
+                cout<<"\nDesea eliminar este golfista(s/n): ";
+                cin>>licencia;
+
+                if(strcmp(licencia, "s")==0)
+                    torneo->eliminar(pos);
+                else
+                    cout<<"No se ha eliminado\n"<<endl;
             }
             else
-                cout<<"\nNo existe ningun golfista con esa licencia"<<endl;
+                cout<<"\nNo existe ningun golfista con esa licencia\n"<<endl;
         }
         break;
 

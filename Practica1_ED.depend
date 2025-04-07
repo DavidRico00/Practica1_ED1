@@ -29,3 +29,28 @@
 	"Comun.h"
 	"Clasificacion.h"
 
+1744044381 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\main.cpp
+	"Comun.h"
+	"Torneo.h"
+
+1743441783 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\include\comun.h
+	<fstream>
+	<iostream>
+	<cstring>
+	<iomanip>
+	<cstdlib>
+	<ctime>
+
+1743441783 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\include\torneo.h
+	"Comun.h"
+	"Clasificacion.h"
+
+1743441783 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\include\clasificacion.h
+	"Comun.h"
+
+1743441783 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\src\clasificacion.cpp
+	"Clasificacion.h"
+
+1743441783 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\src\torneo.cpp
+	"Torneo.h"
+
