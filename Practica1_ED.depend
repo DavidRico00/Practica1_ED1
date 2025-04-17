@@ -29,7 +29,7 @@
 	"Comun.h"
 	"Clasificacion.h"
 
-1744044381 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\main.cpp
+1744887907 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\main.cpp
 	"Comun.h"
 	"Torneo.h"
 
@@ -41,7 +41,7 @@
 	<cstdlib>
 	<ctime>
 
-1743441783 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\include\torneo.h
+1744886875 c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\include\torneo.h
 	"Comun.h"
 	"Clasificacion.h"
 
@@ -51,6 +51,6 @@
 1743441783 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\src\clasificacion.cpp
 	"Clasificacion.h"
 
-1743441783 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\src\torneo.cpp
+1744888146 source:c:\users\user\onedrive\escritorio\estructura de datos 1\practica1_ed1\src\torneo.cpp
 	"Torneo.h"
 

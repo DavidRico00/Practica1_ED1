@@ -283,7 +283,7 @@ void Torneo::Clasificar()
     {
         srand(time(0));
 
-        int minimo = 42, maximo = 112;
+        int minimo = 32, maximo = 92;
 
         Clasificacion clasificacion;
         Golfista golfista;
@@ -318,7 +318,6 @@ void Torneo::Clasificar()
 }
 
 
-
 void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
 {
     if (cabecera)
@@ -342,3 +341,57 @@ void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
          << setw(8) << left << g->golpes
          << setw(9) << left << g->resultado << endl;
 }
+
+
+// Mostrar: Handicap medio, número de jugadores con resultado positivo/negativo, mejor y peor golfista
+void Torneo::mostrarEstadisticas()
+{
+    fichero.seekg(sizeof(int), ios::beg);
+    float handicapMedio = 0;
+    int numJugNegativos = 0, numJugPositivo = 0;
+
+    Golfista golfAux, golfMejor, golfPeor;
+    int posMejor, posPeor;
+
+    for(int i=0; i<numGolfistas; i++)
+    {
+        fichero.read((char*)&golfAux, sizeof(Golfista));
+
+        if(i==0)
+        {
+            golfMejor = golfAux;
+            golfPeor = golfAux;
+            posMejor = i;
+            posPeor = i;
+        }
+
+        handicapMedio += golfAux.handicap;
+
+        if(golfAux.resultado>=0)
+            numJugPositivo++;
+        else
+            numJugNegativos++;
+
+        if(golfAux.resultado < golfMejor.resultado)
+        {
+            golfMejor = golfAux;
+            posMejor = i;
+        }
+
+        if(golfAux.resultado > golfPeor.resultado)
+        {
+            golfPeor = golfAux;
+            posPeor = i;
+        }
+    }
+
+    handicapMedio = handicapMedio/numGolfistas;
+
+    cout<<"\nESTADISTICAS:\n\tHandicap medio: "<<handicapMedio<<"\n\tNum Golfistas resultado negativo: "<<numJugNegativos<<endl;
+    cout<<"\tNum Golfistas resultados positivos: "<<numJugPositivo<<endl;
+    cout<<"\tMejor golfista";
+    mostrarGolfista(&golfMejor, true, posMejor);
+    cout<<"\n\tPeor golfista";
+    mostrarGolfista(&golfPeor, true, posPeor);
+}
+

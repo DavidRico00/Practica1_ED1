@@ -39,6 +39,14 @@ public:
     void Clasificar();
 
     void mostrarGolfista(Golfista *g, bool cabecera, int pos);
+
+    /*Estadísticas del torneo
+        Calcular y mostrar:
+            - Handicap medio
+            - Número de jugadores con resultado positivo/negativo
+            - Mejor y peor golfista*/
+    void mostrarEstadisticas();
+
 };
 
 #endif // TORNEO_H

@@ -293,6 +293,13 @@ void implementacionMenuTorneo(Torneo* torneo, cadena nombreTorneo)
             cout<<"\nVolviendo al menu principal...\n"<<endl;
         }
         break;
+
+        case 8:
+        {
+            torneo->mostrarEstadisticas();
+        }
+        break;
+
         }
 
         PAUSE;
@@ -331,16 +338,16 @@ int menuTorneo(cadena nombre, int numGolfistas)
         CLS;
         cout<<"Torneo "<<nombre<<"\n---------------------\nNumero de golfistas: "<<numGolfistas<<endl;
         cout<<"\n\t1. Consulta de inscripciones\n\t2. Inscripcion al Torneo\n\t3. Busqueda de una inscripcion\n\t4. Modificar datos de una inscripcion"<<endl;
-        cout<<"\t5. Eliminar una inscripcion\n\t6. Mostrar Resultados del Torneo\n\t7. Salir\n"<<endl;
+        cout<<"\t5. Eliminar una inscripcion\n\t6. Mostrar Resultados del Torneo\n\t7. Salir\n\n\t8. Mostrar Estadisticas\n"<<endl;
         cout<<"Indique la opcion deseada: ";
         cin>>opcion;
-        if(opcion<1 || opcion>7)
+        if(opcion<1 || opcion>8)
         {
             cout<<"Opcion no valida, intentelo de nuevo\n\n";
             PAUSE;
         }
     }
-    while(opcion<1 || opcion>7);
+    while(opcion<1 || opcion>8);
 
     return opcion;
 }
