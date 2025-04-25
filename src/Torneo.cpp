@@ -318,7 +318,6 @@ void Torneo::Clasificar()
 }
 
 
-
 void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
 {
     if (cabecera)
@@ -342,3 +341,4 @@ void Torneo::mostrarGolfista(Golfista *g, bool cabecera, int pos)
          << setw(8) << left << g->golpes
          << setw(9) << left << g->resultado << endl;
 }
+
